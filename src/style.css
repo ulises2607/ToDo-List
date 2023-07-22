@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  border: 0;
+}
+
+body {
+  padding: 20%;
+}
+
+.todo-container {
+
+  border: 1px solid black;
+  
+}
+
+.title {
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title h2 {
+  padding: 1rem;
+}
+
+.title i {
+  color: grey;
+}
+
+input {
+  padding: 1rem 0 1rem 1rem;
+  border: none;
+}
+
+form {
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  width: 1rem;
+  background-color: white;
+  color: grey;
+  padding: 0;
+}
+
