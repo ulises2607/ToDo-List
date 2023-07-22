@@ -1,18 +1,17 @@
-import _ from 'lodash';
 import './style.css';
-import "@fortawesome/fontawesome-free/css/all.css";
+import '@fortawesome/fontawesome-free/css/all.css';
 
-const taskList = document.querySelector('.task-list')
+const taskList = document.querySelector('.task-list');
 
-class taskStorage{
+class TaskStorage {
   data = []
 
-  addData(t){
+  addData(t) {
     console.log('AddData');
-    if(this.data.length >= 1) {
-      t.index = this.data.length 
+    if (this.data.length >= 1) {
+      t.index = this.data.length;
     }
-    this.data.push(t)
+    this.data.push(t);
     this.saveData();
   }
 
@@ -22,7 +21,7 @@ class taskStorage{
     this.displayData();
   }
 
-  createTask(desc, comp=false, ind=0) {
+  createTask(desc, comp = false, ind = 0) {
     console.log('createD');
     const task = {
       index: ind,
@@ -33,9 +32,9 @@ class taskStorage{
   }
 
   displayData() {
-    taskList.innerHTML= '';
-    for(let id = 0; id < this.data.length ; id++){
-            taskList.innerHTML += `
+    taskList.innerHTML = '';
+    for (let id = 0; id < this.data.length; id += 1) {
+      taskList.innerHTML += `
             <li class="list-item">
                 
                   <div class="check-desc">
@@ -46,13 +45,12 @@ class taskStorage{
                   <i class="fa-solid fa-ellipsis-vertical"></i>
               
             </li>
-      `;    
+      `;
     }
-    
   }
 
   saveData() {
-      localStorage.setItem('tasks', JSON.stringify(this.data));
+    localStorage.setItem('tasks', JSON.stringify(this.data));
     console.log('saveData');
   }
 
@@ -61,23 +59,20 @@ class taskStorage{
     if (savedData) {
       this.data = JSON.parse(savedData);
     }
-    this.displayData()
+    this.displayData();
   }
 }
 
-  let storage = new taskStorage();
+const storage = new TaskStorage();
 
+const list = document.querySelector('.add-form');
 
-
-const list = document.querySelector('.add-form')
-
-
-export const addTask = (taskSt) => {
+const addTask = (taskSt) => {
   list.addEventListener('submit', (event) => {
     event.preventDefault();
     const taskDesc = document.querySelector('#input-task');
     taskSt.createTask(taskDesc.value);
-    taskSt.displayData()
+    taskSt.displayData();
   });
 };
 

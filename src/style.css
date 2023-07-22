@@ -13,7 +13,6 @@ body {
 .todo-container {
   background-color: white;
   border: 1px solid grey;
-  
 }
 
 .title {
@@ -23,18 +22,16 @@ body {
   align-items: center;
   border-bottom: 1px solid grey;
   margin-right: 6rem;
-
 }
 
 .title h2 {
   padding: 1rem;
 }
 
-
 .title i {
   width: 2rem;
   color: grey;
-  padding: 0rem 1rem 1rem 2rem;
+  padding: 0 1rem 1rem 2rem;
 }
 
 input {
@@ -83,4 +80,3 @@ input {
   justify-content: center;
   align-items: center;
 }
-
