@@ -8,44 +8,52 @@ class taskStorage{
   data = []
 
   addData(t){
+    console.log('AddData');
+    if(this.data.length >= 1) {
+      t.index = this.data.length 
+    }
     this.data.push(t)
     this.saveData();
   }
 
   removeData(id) {
-    this.data = this.data.filter((book) => book.id !== id);
+    this.data = this.data.filter((task) => task.id !== id);
     this.saveData();
     this.displayData();
   }
 
   createTask(desc, comp=false, ind=0) {
+    console.log('createD');
     const task = {
       index: ind,
       description: desc,
-      complete: comp,
+      completed: comp,
     };
     this.addData(task);
   }
 
   displayData() {
-    let indexTask = 0;
     taskList.innerHTML= '';
-    this.data.forEach((elem) => {
-      taskList.innerHTML += `
-      <li class="list-item">
-          <p>
-            <input class='checkbox' type='checkbox' ${task.completed ? 'checked' : ''}>
-            ${task.description}
-            <i class="fa-solid fa-ellipsis-vertical"></i>
-        </p>
-      </li>
-`;
-    })
-    indexTask += 1;
+    for(let id = 0; id < this.data.length ; id++){
+            taskList.innerHTML += `
+            <li class="list-item">
+                
+                  <div class="check-desc">
+                    <input class='checkbox' type='checkbox' ${this.data[id].completed ? 'checked' : ''}>
+                    <p>${this.data[id].description} </p>
+                  </div>
+                  
+                  <i class="fa-solid fa-ellipsis-vertical"></i>
+              
+            </li>
+      `;    
+    }
+    
   }
 
   saveData() {
-    localStorage.setItem('tasks', JSON.stringify(this.data));
+      localStorage.setItem('tasks', JSON.stringify(this.data));
+    console.log('saveData');
   }
 
   loadData() {
@@ -53,8 +61,8 @@ class taskStorage{
     if (savedData) {
       this.data = JSON.parse(savedData);
     }
+    this.displayData()
   }
-
 }
 
   let storage = new taskStorage();
@@ -68,10 +76,11 @@ export const addTask = (taskSt) => {
   list.addEventListener('submit', (event) => {
     event.preventDefault();
     const taskDesc = document.querySelector('#input-task');
-
-    taskSt.createTask(taskDesc);
-    taskSt.displayData();
+    taskSt.createTask(taskDesc.value);
+    taskSt.displayData()
   });
 };
 
 addTask(storage);
+
+window.onload = storage.loadData();
