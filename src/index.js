@@ -4,7 +4,28 @@ import '@fortawesome/fontawesome-free/css/all.css';
 const taskList = document.querySelector('.task-list');
 
 class TaskStorage {
-  data = []
+  data = [
+    {
+      index: 1,
+      description: "Buy groceries",
+      completed: false,
+    },
+    {
+      index: 2,
+      description: "Pay bills",
+      completed: true,
+    },
+    {
+      index: 3,
+      description: "Call the doctor",
+      completed: false,
+    },
+    {
+      index: 4,
+      description: "Organize the closet",
+      completed: true,
+    },
+  ];
 
   addData(t) {
     if (this.data.length >= 1) {
