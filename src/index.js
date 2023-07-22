@@ -7,7 +7,6 @@ class TaskStorage {
   data = []
 
   addData(t) {
-    console.log('AddData');
     if (this.data.length >= 1) {
       t.index = this.data.length;
     }
@@ -22,7 +21,6 @@ class TaskStorage {
   }
 
   createTask(desc, comp = false, ind = 0) {
-    console.log('createD');
     const task = {
       index: ind,
       description: desc,
@@ -51,7 +49,6 @@ class TaskStorage {
 
   saveData() {
     localStorage.setItem('tasks', JSON.stringify(this.data));
-    console.log('saveData');
   }
 
   loadData() {
