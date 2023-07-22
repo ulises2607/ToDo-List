@@ -27,13 +27,10 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 Awesome Books App <a name="about-project"></a>
+# 📖 To Do List App <a name="about-project"></a>
 
-**Awesome Books App** It's an application where users will Add or Remove books that are acknowledged as good to our personal library.
+The Todo List project is a simple and efficient task management application that helps you stay organized and track your daily tasks effectively.
 
-In this project we mostly used HTML,JavaScript & a bit of CSS skills to complete the project.
-
-As well as knowing how to manipulate information but, more importantly, how to copy a design using a medium-wire frame.
 
 ## 🛠 Built With <a name="built-with"></a>
 
