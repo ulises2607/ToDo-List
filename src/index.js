@@ -1,10 +1,11 @@
 import './style.css';
 import '@fortawesome/fontawesome-free/css/all.css';
-import { TaskStorage, addTask } from './functions.js';
+import { TaskStorage } from './functions.js';
 
+const list = document.querySelector('.add-form');
+const taskList = document.querySelector('.task-list');
 const storage = new TaskStorage();
-export default storage;
 
-addTask(storage);
+storage.addTask();
 
 window.onload = storage.loadData();

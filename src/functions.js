@@ -1,7 +1,22 @@
 import storage from '.';
-
 const list = document.querySelector('.add-form');
 const taskList = document.querySelector('.task-list');
+
+
+const editTaskDescription = (pa, li) => {
+  pa.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      const taskId = parseInt(li.dataset.taskId, 10);
+      const newParaph = pa.textContent.trim();
+      const taskToUpdate = storage.data.find((task) => task.index === taskId);
+      if (taskToUpdate) {
+        taskToUpdate.description = newParaph;
+        storage.saveData();
+        storage.displayData();
+      }
+    }
+  });
+};
 
 export class TaskStorage {
   data = [];
@@ -66,23 +81,12 @@ export class TaskStorage {
         const iconOpt = li.querySelector('.fa-ellipsis-vertical');
 
         iconOpt.addEventListener('click', (event) => {
-          paragraph.contentEditable = true;
-          paragraph.focus();
-          paragraph.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter') {
-              const taskId = parseInt(li.dataset.taskId, 10);
-              const newParaph = paragraph.textContent.trim();
-              const taskToUpdate = storage.data.find((task) => task.index === taskId);
-              if (taskToUpdate) {
-                taskToUpdate.description = newParaph;
-                storage.saveData();
-                storage.displayData();
-              }
-            }
-          });
-
           event.stopPropagation();
           iconOpt.classList.replace('fa-ellipsis-vertical', 'fa-trash-can');
+
+          paragraph.contentEditable = true;
+          paragraph.focus();
+          editTaskDescription(paragraph, li);
 
           li.style.backgroundColor = '#FFF9C4';
 
@@ -97,6 +101,15 @@ export class TaskStorage {
     }
   }
 
+  addTask = () => {
+    list.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const taskDesc = document.querySelector('#input-task');
+      this.createTask(taskDesc.value);
+      this.displayData();
+    });
+  };
+
   saveData() {
     localStorage.setItem('tasks', JSON.stringify(this.data));
   }
@@ -110,11 +123,4 @@ export class TaskStorage {
   }
 }
 
-export const addTask = (taskSt) => {
-  list.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const taskDesc = document.querySelector('#input-task');
-    taskSt.createTask(taskDesc.value);
-    taskSt.displayData();
-  });
-};
+export default TaskStorage;
