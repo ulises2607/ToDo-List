@@ -1,18 +1,10 @@
-import { every } from 'lodash';
 import './style.css';
 import '@fortawesome/fontawesome-free/css/all.css';
-import { addTask, TaskStorage} from './functions';
-
-
-
-
-
+import { TaskStorage, addTask } from './functions.js';
 
 const storage = new TaskStorage();
-export default storage
+export default storage;
 
 addTask(storage);
-
-
 
 window.onload = storage.loadData();

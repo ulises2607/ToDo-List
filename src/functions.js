@@ -1,6 +1,7 @@
+import storage from '.';
+
 const list = document.querySelector('.add-form');
 const taskList = document.querySelector('.task-list');
-import storage from ".";
 
 export class TaskStorage {
   data = [];
@@ -10,7 +11,7 @@ export class TaskStorage {
       const maxIndex = Math.max(...this.data.map((task) => task.index));
       t.index = maxIndex + 1;
     } else {
-      t.index = 0; // Si no hay elementos en el array, el índice será 1
+      t.index = 0;
     }
     this.data.push(t);
     this.saveData();
@@ -19,9 +20,8 @@ export class TaskStorage {
   removeData(id) {
     this.data = this.data.filter((task) => task.index !== id);
     this.saveData();
-    this.rearray()
+    this.rearray();
     this.displayData();
-    
   }
 
   createTask(desc, comp = false, ind = 0) {
@@ -37,12 +37,11 @@ export class TaskStorage {
     this.data.forEach((dat, index) => {
       dat.index = index;
     });
-    console.log(this.data);
     this.saveData();
   }
 
   displayData() {
-    this.rearray()
+    this.rearray();
     taskList.innerHTML = '';
     for (let id = 0; id < this.data.length; id += 1) {
       taskList.innerHTML += `
@@ -61,20 +60,18 @@ export class TaskStorage {
               
             </li>
       `;
-          const items = document.querySelectorAll('.list-item');
-        items.forEach((li) => {
-
-        const paragraph = li.querySelector('p')
+      const items = document.querySelectorAll('.list-item');
+      items.forEach((li) => {
+        const paragraph = li.querySelector('p');
         const iconOpt = li.querySelector('.fa-ellipsis-vertical');
 
         iconOpt.addEventListener('click', (event) => {
-          paragraph.contentEditable = true
-          paragraph.focus()
-          paragraph.addEventListener('keydown',(event) => {
-            if(event.key === 'Enter') {
-              const taskId = parseInt(li.dataset.taskId)
-              const newParaph = paragraph.textContent.trim()
-              console.log(newParaph);
+          paragraph.contentEditable = true;
+          paragraph.focus();
+          paragraph.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+              const taskId = parseInt(li.dataset.taskId, 10);
+              const newParaph = paragraph.textContent.trim();
               const taskToUpdate = storage.data.find((task) => task.index === taskId);
               if (taskToUpdate) {
                 taskToUpdate.description = newParaph;
@@ -82,26 +79,22 @@ export class TaskStorage {
                 storage.displayData();
               }
             }
-  
-          })
-          
+          });
+
           event.stopPropagation();
           iconOpt.classList.replace('fa-ellipsis-vertical', 'fa-trash-can');
-          
+
           li.style.backgroundColor = '#FFF9C4';
 
           const trashIcon = li.querySelector('.fa-trash-can');
           trashIcon.addEventListener('click', () => {
-            
-            const taskId = parseInt(li.dataset.taskId)
-            storage.removeData(taskId)
-            storage.rearray()
-          
-
-          } )
+            const taskId = parseInt(li.dataset.taskId, 10);
+            storage.removeData(taskId);
+            storage.rearray();
+          });
         });
-      });    
-    }  
+      });
+    }
   }
 
   saveData() {
@@ -118,13 +111,10 @@ export class TaskStorage {
 }
 
 export const addTask = (taskSt) => {
-    list.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const taskDesc = document.querySelector('#input-task');
-        taskSt.createTask(taskDesc.value);
-        taskSt.displayData();
-        });
-    };
-
-
-
+  list.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const taskDesc = document.querySelector('#input-task');
+    taskSt.createTask(taskDesc.value);
+    taskSt.displayData();
+  });
+};
