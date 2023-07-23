@@ -64,7 +64,7 @@ The Todo List project is a simple and efficient task management application that
 
 ### Take a Look
 
-- In comming
+- Click [here!](https://ulises2607.github.io/ToDo-List/dist/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
