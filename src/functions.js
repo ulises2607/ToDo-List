@@ -1,22 +1,5 @@
-import storage from '.';
 const list = document.querySelector('.add-form');
 const taskList = document.querySelector('.task-list');
-
-
-const editTaskDescription = (pa, li) => {
-  pa.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-      const taskId = parseInt(li.dataset.taskId, 10);
-      const newParaph = pa.textContent.trim();
-      const taskToUpdate = storage.data.find((task) => task.index === taskId);
-      if (taskToUpdate) {
-        taskToUpdate.description = newParaph;
-        storage.saveData();
-        storage.displayData();
-      }
-    }
-  });
-};
 
 export class TaskStorage {
   data = [];
@@ -86,15 +69,26 @@ export class TaskStorage {
 
           paragraph.contentEditable = true;
           paragraph.focus();
-          editTaskDescription(paragraph, li);
+          paragraph.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+              const taskId = parseInt(li.dataset.taskId, 10);
+              const newParaph = paragraph.textContent.trim();
+              const taskToUpdate = this.data.find((task) => task.index === taskId);
+              if (taskToUpdate) {
+                taskToUpdate.description = newParaph;
+                this.saveData();
+                this.displayData();
+              }
+            }
+          });
 
           li.style.backgroundColor = '#FFF9C4';
 
           const trashIcon = li.querySelector('.fa-trash-can');
           trashIcon.addEventListener('click', () => {
             const taskId = parseInt(li.dataset.taskId, 10);
-            storage.removeData(taskId);
-            storage.rearray();
+            this.removeData(taskId);
+            this.rearray();
           });
         });
       });
