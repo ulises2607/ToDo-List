@@ -4,7 +4,8 @@ import { TaskStorage } from './functions.js';
 
 const storage = new TaskStorage();
 storage.addTask();
-// Llama al método loadData de la instancia storage
+storage.clear();
+
 window.onload = () => {
   storage.loadData();
 };

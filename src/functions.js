@@ -22,6 +22,13 @@ export class TaskStorage {
     this.displayData();
   }
 
+  clearCompleted() {
+    this.data = this.data.filter((task) => task.completed !== true);
+    this.saveData();
+    this.rearray();
+    this.displayData();
+  }
+
   createTask(desc, comp = false, ind = 0) {
     const task = {
       index: ind,
@@ -91,6 +98,21 @@ export class TaskStorage {
             this.rearray();
           });
         });
+
+        const checkbox = li.querySelector('.checkbox');
+        checkbox.addEventListener('click', (event) => {
+          event.stopPropagation();
+          li.classList.toggle('overline');
+          console.log(li.dataset.taskId, 10);
+          const taskId = parseInt(li.dataset.taskId, 10);
+          const check = checkbox.checked;
+          const taskToUpdate = this.data.find((task) => task.index === taskId);
+          if (taskToUpdate) {
+            taskToUpdate.completed = check;
+            this.saveData();
+            this.displayData();
+          }
+        });
       });
     }
   }
@@ -103,6 +125,14 @@ export class TaskStorage {
       this.displayData();
     });
   };
+
+  clear = () => {
+    const clrBtn = document.querySelector('.clear');
+    clrBtn.addEventListener('click', (event) => {
+      event.stopPropagation();
+      this.clearCompleted();
+    });
+  }
 
   saveData() {
     localStorage.setItem('tasks', JSON.stringify(this.data));
